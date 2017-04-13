@@ -1,0 +1,11 @@
+[root]
+name = "nested_projects"
+version = "0.1.0"
+dependencies = [
+ "calc 0.1.0",
+]
+
+[[package]]
+name = "calc"
+version = "0.1.0"
+

@@ -4,3 +4,4 @@ version = "0.1.0"
 authors = ["wtnbass <kwtnbass@gmail.com>"]
 
 [dependencies]
+calc = {path = "./calc", version = "0.1.0"}
