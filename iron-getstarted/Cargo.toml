@@ -1,0 +1,7 @@
+[package]
+name = "iron-getstarted"
+version = "0.1.0"
+authors = ["wtnbass <kwtnbass@gmail.com>"]
+
+[dependencies]
+iron = "*"
