@@ -1,17 +1,23 @@
 extern crate iron;
 extern crate handlebars_iron;
+extern crate router;
 
 use iron::{Chain, Request, Response, Iron, IronResult};
 use handlebars_iron::{DirectorySource, HandlebarsEngine, Template};
+use router::Router;
 
 fn main() {
+    let mut router = Router::new();
+    router.get("/", hello_world, "index");
+    router.get("/greeting", greeting, "greeting");
+
     let mut engine =  HandlebarsEngine::new();
     engine.add(Box::new(DirectorySource::new("views", ".hbs")));
     if let Err(r) = engine.reload() {
         panic!("Error: {}", r.cause);
     }
 
-    let mut chain = Chain::new(greeting);
+    let mut chain = Chain::new(router);
     chain.link_after(engine);
 
     let http = "localhost:3000";
@@ -21,7 +27,6 @@ fn main() {
 
 }
 
-#[allow(dead_code)]
 fn hello_world(_:&mut Request) -> IronResult<Response> {
     Ok(Response::with((iron::status::Ok, "Hello, World!")))
 }

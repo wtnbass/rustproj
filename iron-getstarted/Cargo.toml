@@ -6,3 +6,4 @@ authors = ["wtnbass <kwtnbass@gmail.com>"]
 [dependencies]
 iron = "0.5.*"
 handlebars-iron = "0.24.*"
+router = "0.5.*"
