@@ -1,9 +1,10 @@
 mod fibonacci;
 
-use fibonacci::fib;
+use fibonacci::Fibonacci;
 
 fn main() {
-    for n in fib().take(45) {
+    let fib = Fibonacci::new();
+    for n in fib.take(40) {
         println!("{}", n);
     }
 }
