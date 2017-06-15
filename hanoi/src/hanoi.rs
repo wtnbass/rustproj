@@ -41,17 +41,14 @@ impl Hanoi {
 
 impl fmt::Display for Hanoi {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        for i in (0..self.n).rev() {
-            for j in 0..3 {
-                if i < self.piles[j].len() {
-                    write!(f, "{}", self.piles[j][i]).unwrap();
-                } else {
-                    write!(f, " ").unwrap();
-                }
-                write!(f, "   ").unwrap();
+        for i in 0..3 {
+            let p = &self.piles[i];
+            write!(f, "{}:", i).unwrap();
+            for j in 0..p.len() {
+                write!(f, " {}", p[j]).unwrap();
             }
-            write!(f, "\n").unwrap();
+            writeln!(f, "").unwrap();
         }
-        writeln!(f, "a   b   c")
+        write!(f, "")
     }
 }
