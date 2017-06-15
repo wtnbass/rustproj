@@ -34,6 +34,19 @@ impl Hanoi {
         }
     }
 
+    fn move_batch(&mut self, n: usize, from: usize, to: usize) {
+        let mut tmp = Vec::new();
+        for _ in 0..n {
+            if let Some(value) = self.piles[from].pop() {
+                tmp.push(value);
+            }
+        }
+        tmp.reverse();
+        for v in tmp {
+            self.piles[to].push(v);
+        }
+    }
+
     fn hanoi(&mut self, n: usize, from: usize, to: usize, work: usize) {
         if n > 0 {
             self.hanoi(n - 1, from, work, to);
@@ -48,10 +61,49 @@ impl Hanoi {
         }
     }
 
+    fn hanoi_v2(&mut self, n: usize, from: usize, to: usize, work: usize) {
+        if n == 0 {
+            return
+        }
+
+        let last_n = mersenne(n - 1);
+        if last_n + self.count < self.max {
+            if self.max == self.count {
+                return
+            }
+            self.move_batch(n - 1, from, work);
+            self.count += last_n;
+
+            if self.max == self.count {
+                return
+            }
+            self.move_to(from, to);
+
+            self.hanoi_v2(n - 1, work, to, from);
+        } else {
+            self.hanoi_v2(n - 1, from, work, to);
+
+            if self.max <= self.count {
+                return
+            }
+            self.move_to(from, to);
+
+            self.hanoi_v2(n - 1, work, to, from);
+        }
+
+    }
+
+    #[allow(dead_code)]
     pub fn snapshot(&mut self, stop_count: usize) {
         let n = self.n;
         self.max = stop_count;
         self.hanoi(n, 0, 1, 2);
+    }
+
+    pub fn snapshot_v2(&mut self, stop_count: usize) {
+        let n = self.n;
+        self.max = stop_count;
+        self.hanoi_v2(n, 0, 1, 2);
     }
 }
 
