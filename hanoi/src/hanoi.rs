@@ -55,7 +55,6 @@ impl Hanoi {
                 return
             }
             self.move_to(from, to);
-            println!("{}", self);
 
             self.hanoi(n - 1, work, to, from);
         }
